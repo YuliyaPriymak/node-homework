@@ -1,17 +1,12 @@
-const usersArr = [
-    { name: 'Olga', email: 'Olga@gmail.com', password: 1111 },
-    { name: 'Dima', email: 'Dima@gmail.com', password: 2222 },
-    { name: 'Kolya', email: 'Kolya@gmail.com', password: 3333 },
-    { name: 'Vika', email: 'Vika@gmail.com', password: 4444 },
-];
-
-let isLogin = false;
-
 const express = require('express');
 const expressHb = require('express-handlebars');
 
 const app = express();
 const path = require('path');
+
+const usersArr = require('./usersArr.json');
+
+let isLogin = false;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
