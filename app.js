@@ -32,6 +32,7 @@ app.get('/registration', ((req, res) => {
 app.post('/registr', ((req, res) => {
     const { name, email, password } = req.body;
     const user = usersArr.find((el) => el.email === email);
+
     if (user) {
         return res.render('error', { text: 'this email is exist all ready' });
     }
@@ -47,12 +48,14 @@ app.get('/log', ((req, res) => {
 app.post('/auth', ((req, res) => {
     const { email, password } = req.body;
     const user = usersArr.find((el) => el.email === email);
+
     if (!user) {
         return res.render('error', { text: 'Wrong email!' });
     }
     if (user.password !== password) {
         return res.render('error', { text: 'Wrong password!' });
     }
+
     isLogin = true;
     res.render('users', { users: usersArr });
 }));
@@ -61,11 +64,13 @@ app.get('/users', ((req, res) => {
     if (isLogin) {
         return res.render('users', { users: usersArr });
     }
+
     return res.render('error', { text: 'You must log in!' });
 }));
 
 app.get('/logout', ((req, res) => {
     isLogin = false;
+
     res.redirect('/');
 }));
 
