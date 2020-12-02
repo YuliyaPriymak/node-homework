@@ -6,7 +6,7 @@ module.exports = {
         try {
             const usersList = userService.allUsers();
 
-            res.json(usersList);
+            res.status(200).json(usersList);
         } catch (e) {
             res.status(400).json(e.message);
         }
