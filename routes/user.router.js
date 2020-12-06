@@ -8,8 +8,8 @@ userRouter.get('/', userController.getAllUsers);
 
 userRouter.post('/', userMiddleware.isUserExist, userController.createUser);
 
-userRouter.get('/:email', userMiddleware.isEmail, userMiddleware.isPassword, userController.getUserByEmail);
+userRouter.get('/:email', userMiddleware.isEmail, userController.getUserByEmail);
 
-userRouter.delete('/:email', userMiddleware.isEmail, userController.deleteCurrentUser);
+userRouter.delete('/:userId', userMiddleware.isEmail, userController.deleteCurrentUser);
 
 module.exports = userRouter;

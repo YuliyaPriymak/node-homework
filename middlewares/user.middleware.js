@@ -1,10 +1,16 @@
-const users = require('../dataBase/users');
+const db = require('../dataBase').getInstance();
 
 module.exports = {
     isUserExist: (req, res, next) => {
         try {
-            const { email, password } = req.body;
-            const newUser = users.find((el) => el.email === email || el.password === password);
+            const { email } = req.body;
+            const newUser = db.getModel('User');
+
+            newUser.findAll({
+                where: {
+                    email
+                }
+            });
 
             if (newUser) {
                 throw new Error('This user is exist all ready');
@@ -19,25 +25,16 @@ module.exports = {
     isEmail: (req, res, next) => {
         try {
             const { email } = req.body;
-            const userEmail = users.find((el) => el.email === email);
+            const user = db.getModel('User');
 
-            if (!userEmail) {
-                throw new Error('Wrong email');
-            }
+            user.findAll({
+                where: {
+                    email
+                }
+            });
 
-            next();
-        } catch (e) {
-            res.status(401).json(e.message);
-        }
-    },
-
-    isPassword: (req, res, next) => {
-        try {
-            const { password } = req.body;
-            const userPassword = users.find((el) => el.password === password);
-
-            if (!userPassword) {
-                throw new Error('Wrong password');
+            if (!user) {
+                throw new Error('User does not exist');
             }
 
             next();

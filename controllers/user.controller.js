@@ -1,10 +1,9 @@
 const { userService } = require('../services');
-const users = require('../dataBase/users');
 
 module.exports = {
-    getAllUsers: (req, res) => {
+    getAllUsers: async (req, res) => {
         try {
-            const usersList = userService.allUsers();
+            const usersList = await userService.findUsers();
 
             res.status(200).json(usersList);
         } catch (e) {
@@ -12,32 +11,34 @@ module.exports = {
         }
     },
 
-    createUser: (req, res) => {
+    createUser: async (req, res) => {
         try {
-            const user = req.body;
+            const {
+                name, email, password, age
+            } = req.body;
 
-            userService.insertUser(user);
-            res.status(201).json(users);
+            await userService.insertUser(name, email, password, age);
         } catch (e) {
             res.status(400).json(e.message);
         }
     },
 
-    getUserByEmail: (req, res) => {
+    getUserByEmail: async (req, res) => {
         try {
-            const { user_email } = req.params;
-            const user = userService.findUserByEmail(user_email);
+            const { email } = req.params;
 
-            res.status(200).json(user);
+            const user = await userService.findUserByEmail(email);
+
+            res.json(user);
         } catch (e) {
             res.status(400).json(e.message);
         }
     },
 
-    deleteCurrentUser: (req, res) => {
+    deleteCurrentUser: async (req, res) => {
         try {
-            const { email } = req.body;
-            const ListWithoutUser = userService.deleteUser(email);
+            const { userId } = req.body;
+            const ListWithoutUser = await userService.deleteUser(userId);
 
             res.status(200).json(ListWithoutUser);
         } catch (e) {
