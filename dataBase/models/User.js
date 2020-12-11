@@ -5,8 +5,7 @@ module.exports = (client, DataTypes) => {
             id: {
                 type: DataTypes.INTEGER,
                 primaryKey: true,
-                autoIncrement: true,
-                foreignKey: true
+                autoIncrement: true
             },
             name: {
                 type: DataTypes.STRING,
@@ -30,9 +29,7 @@ module.exports = (client, DataTypes) => {
     );
 
     const Car = require('./Car')(client, DataTypes);
-    User.belongsTo(Car, {
-        foreignKey: 'id', as: 'car', onDelete: 'CASCADE', onUpdate: 'CASCADE'
-    });
+    User.hasMany(Car, { foreignKey: 'user_id', onDelete: 'cascade' });
 
     return User;
 };

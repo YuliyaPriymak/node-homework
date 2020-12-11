@@ -4,7 +4,8 @@ module.exports = (client, DataTypes) => {
         {
             id: {
                 type: DataTypes.INTEGER,
-                autoIncrement: true
+                autoIncrement: true,
+                primaryKey: true
             },
             car_name: {
                 type: DataTypes.STRING,
@@ -12,7 +13,6 @@ module.exports = (client, DataTypes) => {
             },
             user_id: {
                 type: DataTypes.INTEGER,
-                primaryKey: true,
                 foreignKey: true
             },
         },

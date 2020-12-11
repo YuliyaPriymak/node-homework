@@ -1,3 +1,4 @@
 module.exports = {
-    userController: require('./user.controller')
+    userController: require('./user/user.controller'),
+    carController: require('./car/car.controller')
 };
